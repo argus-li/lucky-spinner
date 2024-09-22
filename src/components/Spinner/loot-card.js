@@ -141,6 +141,33 @@ class LootCard {
 		if (t >= T) this.v = 0;
 	}
 
+	bingoDisplay(q5) {
+		q5.noStroke();
+		const r = 255 * q5.noise(0.01 * q5.frameCount) + 100;
+		const g = 255 * q5.noise(0.00001 * q5.frameCount * r) + 100;
+		q5.fill(q5.color(r, g, 0));
+		q5.rect(this.x, this.y, CardSize.width, CardSize.height);
+
+		q5.push();
+		q5.rectMode(q5.CENTER);
+		const squareColor = q5.color(255);
+		q5.fill(squareColor);
+		q5.rect(this.x + 120, this.y + 80, 220, 140);
+		q5.pop();
+
+		if (this.img) {
+			q5.push();
+			q5.imageMode(q5.CENTER);
+			q5.translate(this.x + 120, this.y + 80);
+			const angle = q5.sin(2 * q5.noise(0.01 * q5.frameCount) - 1) / 2;
+			q5.rotate(angle);
+			q5.image(this.img, 0, 0, 100, 100);
+			q5.pop();
+		}
+
+		this.drawText(q5);
+	}
+
 	isReadyToSelected(q5, { t }) {
 		const T = EaseTime + PeakTime;
 		if (t < T) return false;

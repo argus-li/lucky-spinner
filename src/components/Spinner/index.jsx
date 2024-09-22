@@ -101,10 +101,7 @@ const Spinner = ({ source, stage, target, onDrawingFinished }) => {
 
 						break;
 					case BINGO:
-						updateAndDisplayCards(q5, activeCards, {
-							v: 0,
-							acc: 0,
-						});
+						handleBingoPhase(q5, activeCards, targetRef.current);
 						releaseFireworks();
 						break;
 					default:
@@ -180,6 +177,16 @@ const Spinner = ({ source, stage, target, onDrawingFinished }) => {
 						if (!isSelected && isReadyToSelected) {
 							isSelected = card.v === 0;
 						}
+					}
+				});
+			}
+
+			function handleBingoPhase(q5, cards, target) {
+				cards.forEach((card) => {
+					if (card.id === target) {
+						card.bingoDisplay(q5);
+					} else {
+						card.display(q5);
 					}
 				});
 			}

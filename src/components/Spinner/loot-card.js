@@ -135,7 +135,7 @@ class LootCard {
 		const v0 = SpeedDownLimit;
 		const T = bounceTime;
 
-		const dx = t >= T ? 0 : v0 * easeOutElastic(t / T);
+		const dx = t >= T ? 0 : v0 * (1 - easeOutElastic((t / 10) * T));
 		this.calculateX(dx);
 
 		if (t >= T) this.v = 0;
